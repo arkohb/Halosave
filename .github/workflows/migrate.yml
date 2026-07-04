@@ -1,0 +1,44 @@
+name: DB Migrate
+
+# Applies the Drizzle schema to your database (creates/updates tables).
+# Runs automatically on push to main, and can also be triggered manually
+# from the Actions tab ("Run workflow").
+#
+# REQUIRED SETUP (one time):
+#   GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret
+#   Name:  DATABASE_URL
+#   Value: your Railway Postgres PUBLIC connection string, with ?sslmode=require appended
+#          e.g. postgresql://user:pass@hostproxy.rlwy.net:1234/railway?sslmode=require
+#   (Use the PUBLIC url, not the internal *.railway.internal one — Actions runs outside Railway.)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Prevent two migrations from racing each other.
+concurrency:
+  group: db-migrate
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    name: Push schema (drizzle-kit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply schema to database
+        run: npm run db:push
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

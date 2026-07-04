@@ -1,0 +1,6 @@
+{
+  "name": "HaloSave",
+  "description": "HaloSave: SAVE. LOCK. GROW. Digital halosave platform with automated withdrawal locks and modular investment engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-halo-cream: var(--halo-cream);
+  --color-halo-gold: var(--halo-gold);
+  --color-halo-gold-hover: var(--halo-gold-hover);
+  --color-halo-gold-active: var(--halo-gold-active);
+  --color-halo-dark: var(--halo-dark);
+  --color-halo-green: var(--halo-green);
+  --color-halo-red: var(--halo-red);
+  
+  --color-halo-card: var(--halo-card);
+  --color-halo-secondary: var(--halo-secondary);
+  --color-halo-tertiary: var(--halo-tertiary);
+  
+  --color-halo-border: var(--halo-border);
+  --color-halo-border-hover: var(--halo-border-hover);
+  
+  --color-halo-text-primary: var(--halo-text-primary);
+  --color-halo-text-secondary: var(--halo-text-secondary);
+  --color-halo-text-tertiary: var(--halo-text-tertiary);
+  --color-halo-text-muted: var(--halo-text-muted);
+}
+
+@layer base {
+  * {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  html, body {
+    overflow-x: hidden;
+  }
+
+  :root {
+    /* Original Theme (Slightly Darker to reduce eye strain) */
+    --halo-cream: #f4ecdf;
+    --halo-gold: #d99b16;
+    --halo-gold-hover: #c48a11;
+    --halo-gold-active: #b67a0d;
+    --halo-dark: #171410;
+    --halo-green: #1f7a4d;
+    --halo-red: #c0392b;
+
+    /* Opaque/Solid Card adjustments for super smooth GPU scrolling */
+    --halo-card: #fdfbf7;
+    --halo-secondary: #ebdcc3;
+    --halo-tertiary: #faeccf;
+
+    --halo-border: #e6dac6;
+    --halo-border-hover: #dacbb1;
+
+    --halo-text-primary: #333333;
+    --halo-text-secondary: #555555;
+    --halo-text-tertiary: #777777;
+    --halo-text-muted: #999999;
+    
+    --halo-bg: radial-gradient(circle at top left, #ffffff 0%, #f4ecdf 40%, #e0d5c1 100%);
+  }
+
+  .dark {
+    /* Dark Theme */
+    --halo-cream: #141210;
+    --halo-gold: #d99b16;
+    --halo-gold-hover: #e5a720;
+    --halo-gold-active: #f1b735;
+    --halo-dark: #fcf9f2;
+    --halo-green: #2ab06f;
+    --halo-red: #e74c3c;
+
+    /* Opaque/Solid Card adjustments for super smooth GPU scrolling */
+    --halo-card: #1c1a18;
+    --halo-secondary: #262320;
+    --halo-tertiary: #332d27;
+
+    --halo-border: #2a2520;
+    --halo-border-hover: #3d3730;
+
+    --halo-text-primary: #e6e0d8;
+    --halo-text-secondary: #b8b2aa;
+    --halo-text-tertiary: #8f8a84;
+    --halo-text-muted: #6b6762;
+    
+    --halo-bg: radial-gradient(circle at top left, #2a2520 0%, #141210 50%, #0a0908 100%);
+  }
+
+  body {
+    background: var(--halo-bg);
+    background-attachment: fixed;
+    @apply text-halo-dark font-sans min-h-screen;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-halo-gold text-halo-dark px-6 py-3 rounded-md font-heading font-semibold shadow-sm transition-all hover:bg-halo-gold-hover hover:shadow-md active:bg-halo-gold-active active:shadow-none;
+  }
+  .btn-secondary {
+    @apply bg-halo-card border-2 border-halo-gold text-halo-gold px-[22px] py-[10px] rounded-md font-heading font-semibold transition-all hover:bg-halo-tertiary;
+  }
+  .btn-tertiary {
+    @apply bg-transparent text-halo-gold rounded-md font-heading font-semibold transition-all hover:bg-halo-tertiary;
+  }
+  .btn-success {
+    @apply bg-halo-green text-white px-6 py-3 rounded-md font-heading font-semibold shadow-sm transition-all hover:opacity-90;
+  }
+  .btn-danger {
+    @apply bg-halo-red text-white px-6 py-3 rounded-md font-heading font-semibold shadow-sm transition-all hover:opacity-90;
+  }
+  .input-field {
+    @apply bg-halo-card border border-halo-border-hover px-4 py-3 rounded-md font-sans text-[14px] text-halo-text-primary focus:border-halo-gold focus:ring-4 focus:ring-halo-gold/30 outline-none transition-all w-full;
+  }
+  .card-standard {
+    @apply bg-halo-card border border-halo-border rounded-xl p-6 shadow-sm hover:shadow-md transition-all;
+    will-change: transform;
+    transform: translateZ(0);
+    contain: paint;
+  }
+  .card-premium {
+    @apply bg-halo-card border-2 border-halo-gold rounded-xl p-6 shadow-[0_2px_8px_rgba(217,155,22,0.12)] transition-all;
+    will-change: transform;
+    transform: translateZ(0);
+    contain: paint;
+  }
+  .badge-standard {
+    @apply bg-halo-secondary text-halo-text-primary px-3 py-1 rounded-full font-sans text-xs font-medium border border-halo-border;
+  }
+  .badge-success {
+    @apply bg-halo-green text-white px-3 py-1 rounded-full font-sans text-xs font-medium shadow-md;
+  }
+  .badge-premium {
+    @apply bg-halo-gold text-halo-dark px-3 py-1 rounded-full font-sans text-xs font-medium shadow-md;
+  }
+}
+
+
+
